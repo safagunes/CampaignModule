@@ -10,12 +10,12 @@ namespace Campaign.Infrastructure.Repositories.InMemory
     public class InMemoryCampaignRepository : ICampaignRepository
     {
 
-        private static List<Domain.Models.Campaign> _campaigns = new List<Domain.Models.Campaign>();
+        private List<Domain.Models.Campaign> _campaigns = new List<Domain.Models.Campaign>();
         public void Create(Domain.Models.Campaign model)
         {
             if (_campaigns.Any(a => a.Name == model.Name))
             {
-                throw new DatabaseException("Campaign already exist");
+                throw new DatabaseException("Campaign already exist.");
             }
             _campaigns.Add(model);
         }

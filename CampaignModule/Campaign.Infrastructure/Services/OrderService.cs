@@ -1,4 +1,5 @@
 ﻿using Campaign.Domain.Dtos.Order;
+using Campaign.Domain.Exceptions;
 using Campaign.Domain.Models;
 using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
@@ -20,6 +21,10 @@ namespace Campaign.Infrastructure.Services
         public void OrderCreate(OrderCreateDto model)
         {
             var product = _productRepository.Get(model.ProductCode);
+            if (product == null)
+            {
+                throw new BusinessException("Not found product for the order.");
+            }
             _orderRepository.Create(new Order
             {
                 ProductCode = model.ProductCode,

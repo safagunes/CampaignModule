@@ -10,7 +10,7 @@ namespace Campaign.Infrastructure.Repositories.InMemory
 {
     public class InMemoryOrderRepository : IOrderRepository
     {
-        private static List<Order> _orders = new List<Order>();
+        private List<Order> _orders = new List<Order>();
         public void Create(Order model)
         {
             _orders.Add(model);

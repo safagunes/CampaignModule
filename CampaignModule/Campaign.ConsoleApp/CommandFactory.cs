@@ -33,7 +33,6 @@ namespace Campaign.ConsoleApp
                 "increase_time" => new IncreaseTimeCommand(_timeService),
                 _ => throw new ApplicationException($"{commandName} command not found"),
             };
-            ;
             return command;
         }
     }

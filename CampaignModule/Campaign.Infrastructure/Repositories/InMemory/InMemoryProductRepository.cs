@@ -9,12 +9,12 @@ namespace Campaign.Infrastructure.Repositories.InMemory
 {
     public class InMemoryProductRepository : IProductRepository
     {
-        private static Dictionary<string, Product> _products = new Dictionary<string, Product>();
+        private Dictionary<string, Product> _products = new Dictionary<string, Product>();
         public void Create(Product model)
         {
             if (_products.TryGetValue(model.ProductCode, out Product product))
             {
-                throw new DatabaseException("Product already exist");
+                throw new DatabaseException("Product already exist.");
             }
             _products.Add(model.ProductCode, model);
         }

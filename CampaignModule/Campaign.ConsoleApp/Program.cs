@@ -1,6 +1,7 @@
 ﻿using Campaign.Domain.Dtos.Campaign;
 using Campaign.Domain.Dtos.Order;
 using Campaign.Domain.Dtos.Product;
+using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
 using Campaign.Infrastructure.Repositories.InMemory;
 using Campaign.Infrastructure.Services;
@@ -15,10 +16,15 @@ namespace Campaign.ConsoleApp
     {
         static void Main(string[] args)
         {
-            IProductService _productService = new ProductService(new InMemoryProductRepository(), new InMemoryCampaignRepository(), new TimeService());
-            IOrderService _orderService = new OrderService(new InMemoryOrderRepository(), new InMemoryProductRepository());
-            ICampaignService _campaignService = new CampaignService(new InMemoryCampaignRepository(), new InMemoryOrderRepository(), new TimeService());
+            IProductRepository _productRepository = new InMemoryProductRepository();
+            IOrderRepository _orderRepository = new InMemoryOrderRepository();
+            ICampaignRepository _campaignRepository = new InMemoryCampaignRepository();
+
             ITimeService _timeService = new TimeService();
+            IProductService _productService = new ProductService(_productRepository, _campaignRepository, _timeService);
+            IOrderService _orderService = new OrderService(_orderRepository, _productRepository);
+            ICampaignService _campaignService = new CampaignService(_campaignRepository, _orderRepository, _timeService);
+            
             try
             {
                 string[] lines = File.ReadAllLines(@$"{Directory.GetCurrentDirectory()}\\Commands.txt");

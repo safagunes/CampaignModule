@@ -26,7 +26,7 @@ namespace Campaign.Infrastructure.Services
             var product = _productRepository.Get(code);
             if (product == null)
             {
-                throw new BusinessException("Product not found");
+                throw new BusinessException("Product not found.");
             }
             var campaigns = _campaignRepository.GetByProductCode(code);
 
