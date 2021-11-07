@@ -18,9 +18,15 @@ namespace Campaign.ConsoleApp.Commands
             {
                 throw new ApplicationException($"The argument count of the {arg[0]} command is incorrect. Expected number of arguments 1.");
             }
-            _timeService.Incrace(1);
+
+            if (!int.TryParse(arg[1], out int value))
+            {
+                throw new ApplicationException($"Failed to SetIncreaseHour. Arg:{arg}");
+            }
+
+            _timeService.Incrace(value);
             var time = _timeService.Get();
-            Console.WriteLine($"Time is {time.ToString("HH:mm")}");
+            Console.WriteLine($"Time is {time:HH:mm}");
         }
     }
 }

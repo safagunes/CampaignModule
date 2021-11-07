@@ -1,4 +1,5 @@
-﻿using Campaign.Domain.Dtos.Order;
+﻿using Campaign.ConsoleApp.Builders;
+using Campaign.Domain.Dtos.Order;
 using Campaign.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,10 @@ namespace Campaign.ConsoleApp.Commands
             {
                 throw new ApplicationException($"The argument count of the {arg[0]} command is incorrect. Expected number of arguments 2.");
             }
-            var orderCreateDto = new OrderCreateDto
-            {
-                ProductCode = arg[1],
-                Quantity = Convert.ToInt32(arg[2])
-            };
+            var orderCreateBuilder = new OrderCreateBuilder();
+            var orderCreateDto = orderCreateBuilder.SetProductCode(arg[1])
+                                                   .SetQuantity(arg[2])
+                                                   .Build();
             _orderService.OrderCreate(orderCreateDto);
             Console.WriteLine($"Order created; product {orderCreateDto.ProductCode}, quantity {orderCreateDto.Quantity}");
         }
