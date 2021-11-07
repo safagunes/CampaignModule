@@ -15,6 +15,10 @@ namespace Campaign.ConsoleApp.Commands
         }
         public void Process(string[] arg)
         {
+            if ((arg.Length - 1) != 2)
+            {
+                throw new ApplicationException($"The argument count of the {arg[0]} command is incorrect. Expected number of arguments 2.");
+            }
             var orderCreateDto = new OrderCreateDto
             {
                 ProductCode = arg[1],

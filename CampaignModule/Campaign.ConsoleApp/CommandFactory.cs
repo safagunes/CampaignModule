@@ -31,7 +31,7 @@ namespace Campaign.ConsoleApp
                 "create_campaign" => new CampaignCreateCommand(_campaignService),
                 "get_campaign_info" => new CampaignInfoCommand(_campaignService),
                 "increase_time" => new IncreaseTimeCommand(_timeService),
-                _ => throw new ApplicationException("Command not found"),
+                _ => throw new ApplicationException($"{commandName} command not found"),
             };
             ;
             return command;

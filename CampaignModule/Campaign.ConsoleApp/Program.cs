@@ -19,7 +19,6 @@ namespace Campaign.ConsoleApp
             IOrderService _orderService = new OrderService(new InMemoryOrderRepository(), new InMemoryProductRepository());
             ICampaignService _campaignService = new CampaignService(new InMemoryCampaignRepository(), new InMemoryOrderRepository(), new TimeService());
             ITimeService _timeService = new TimeService();
-
             try
             {
                 string[] lines = File.ReadAllLines(@$"{Directory.GetCurrentDirectory()}\\Commands.txt");

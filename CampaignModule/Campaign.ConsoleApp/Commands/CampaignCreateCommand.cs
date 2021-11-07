@@ -15,6 +15,11 @@ namespace Campaign.ConsoleApp.Commands
         }
         public void Process(string[] arg)
         {
+            if ((arg.Length - 1) != 5)
+            {
+                throw new ApplicationException($"The argument count of the {arg[0]} command is incorrect. Expected number of arguments 5.");
+            }
+
             var campaignCreateDto = new CampaignCreateDto
             {
                 Name = arg[1],
