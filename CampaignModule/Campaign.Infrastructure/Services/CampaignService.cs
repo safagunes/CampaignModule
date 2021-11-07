@@ -31,22 +31,21 @@ namespace Campaign.Infrastructure.Services
             });
         }
 
-        public CampaingInfoDto GetCampaingInfo(string code)
+        public CampaingInfoDto GetCampaingInfo(string name)
         {
-            var campaign = _campaignRepository.Get(code);
+            var campaign = _campaignRepository.Get(name);
             var time = _timeService.Get();
-            bool status = (campaign.Duration - time.Hour) <= 0 ? false : true;
-
-            var orderlist = _orderRepository.GetList(code);
-
+            bool status = (campaign.Duration - time.Hour) > 0;
+            var orderlist = _orderRepository.GetList(campaign.ProductCode);
+            var dd = orderlist.Count();
             return new CampaingInfoDto
             {
                 Name = campaign.Name,
                 Status = status,
                 TargetSalesCount = campaign.TargetSalesCount,
-                TotalSalesCount = orderlist.Count,
-                AvarageItemPrice = orderlist.Average(a => a.Price),
-                Turnover = campaign.TargetSalesCount * orderlist.Count
+                TotalSalesCount = orderlist.Count(),
+                Turnover = campaign.TargetSalesCount * orderlist.Count(),
+                AvarageItemPrice = (orderlist != null && orderlist.Count > 0) ? orderlist.Average(a => a.Price) : (decimal?)null
             };
         }
     }

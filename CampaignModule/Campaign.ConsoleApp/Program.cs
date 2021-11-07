@@ -55,9 +55,9 @@ namespace Campaign.ConsoleApp
                     }
             };
 
-            IProductService _productService = new ProductService(new InMemoryProductRepository());
-            IOrderService _orderService = new OrderService(new InMemoryOrderRepository());
-            ICampaignService _campaignService = new CampaignService(new InMemoryCampaignRepository());
+            IProductService _productService = new ProductService(new InMemoryProductRepository(), new InMemoryCampaignRepository(), new TimeService());
+            IOrderService _orderService = new OrderService(new InMemoryOrderRepository(), new InMemoryProductRepository());
+            ICampaignService _campaignService = new CampaignService(new InMemoryCampaignRepository(), new InMemoryOrderRepository(), new TimeService());
             ITimeService _timeService = new TimeService();
 
             try
@@ -70,7 +70,7 @@ namespace Campaign.ConsoleApp
                     var command = commands.SingleOrDefault(a => a.Name == splittedCommand[0]);
                     if (command != null)
                     {
-                        if (command.ArgCount == splittedCommand.Length)
+                        if (command.ArgCount == splittedCommand.Length - 1)
                         {
                             //TODO:Safa:Burada  type kontrolü yapılacak. Şimdilik es geçiyorum
 
@@ -103,21 +103,22 @@ namespace Campaign.ConsoleApp
                                     var campaignCreateDto = new CampaignCreateDto
                                     {
                                         Name = splittedCommand[1],
-                                        ProductCode = splittedCommand[1],
-                                        Duration = Convert.ToByte(splittedCommand[2]),
-                                        PriceManipulationLimit = Convert.ToByte(splittedCommand[3]),
-                                        TargetSalesCount = Convert.ToInt32(splittedCommand[4])
+                                        ProductCode = splittedCommand[2],
+                                        Duration = Convert.ToByte(splittedCommand[3]),
+                                        PriceManipulationLimit = Convert.ToByte(splittedCommand[4]),
+                                        TargetSalesCount = Convert.ToInt32(splittedCommand[5])
                                     };
                                     _campaignService.CampaignCreate(campaignCreateDto);
                                     Console.WriteLine($"Campaign created; name {campaignCreateDto.Name}, product {campaignCreateDto.ProductCode}, duration {campaignCreateDto.Duration}, limit {campaignCreateDto.PriceManipulationLimit }, target sales count {campaignCreateDto.TargetSalesCount}");
                                     break;
                                 case "get_campaign_info":
                                     var campaignInfo = _campaignService.GetCampaingInfo(splittedCommand[1]);
-                                    Console.WriteLine($"Campaign {campaignInfo.Name} info; Status {(campaignInfo.Status? "Active" : "Passive")}, Target Sales {campaignInfo.TargetSalesCount}, Total Sales {campaignInfo.TotalSalesCount}, Turnover {campaignInfo.Turnover}, Average Item Price {campaignInfo.AvarageItemPrice}");
+                                    Console.WriteLine($"Campaign {campaignInfo.Name} info; Status {(campaignInfo.Status ? "Active" : "Ended")}, Target Sales {campaignInfo.TargetSalesCount}, Total Sales {campaignInfo.TotalSalesCount}, Turnover {campaignInfo.Turnover}, Average Item Price {(campaignInfo.AvarageItemPrice == null ? "-" : campaignInfo.AvarageItemPrice.ToString())}");
                                     break;
                                 case "increase_time":
+                                    _timeService.Incrace(1);
                                     var time = _timeService.Get();
-                                    Console.WriteLine($"Time is {time.Hour}:{time.Minute}");
+                                    Console.WriteLine($"Time is {time.ToString("HH:mm")}");
                                     break;
                                 default:
                                     break;
@@ -139,7 +140,7 @@ namespace Campaign.ConsoleApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"File not found in directory {Directory.GetCurrentDirectory()}");
+                Console.WriteLine($"Error - Error Message: {ex.Message}");
 
             }
 

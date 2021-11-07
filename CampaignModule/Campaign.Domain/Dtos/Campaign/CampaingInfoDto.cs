@@ -11,6 +11,6 @@ namespace Campaign.Domain.Dtos.Campaign
         public int TargetSalesCount { get; set; }
         public int TotalSalesCount { get; set; }
         public int Turnover { get; set; }
-        public decimal AvarageItemPrice { get; set; }
+        public decimal? AvarageItemPrice { get; set; }
     }
 }

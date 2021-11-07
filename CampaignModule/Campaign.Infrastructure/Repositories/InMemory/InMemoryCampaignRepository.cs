@@ -2,6 +2,7 @@
 using Campaign.Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Campaign.Infrastructure.Repositories.InMemory
@@ -9,23 +10,24 @@ namespace Campaign.Infrastructure.Repositories.InMemory
     public class InMemoryCampaignRepository : ICampaignRepository
     {
 
-        private static Dictionary<string, Domain.Models.Campaign> _campaigns = new Dictionary<string, Domain.Models.Campaign>();
+        private static List<Domain.Models.Campaign> _campaigns = new List<Domain.Models.Campaign>();
         public void Create(Domain.Models.Campaign model)
         {
-            if (_campaigns.TryGetValue(model.ProductCode, out Domain.Models.Campaign campaign))
+            if (_campaigns.Any(a => a.Name == model.Name))
             {
                 throw new DatabaseException("Campaign already exist");
             }
-            _campaigns.Add(model.ProductCode, model);
+            _campaigns.Add(model);
         }
 
-        public Domain.Models.Campaign Get(string code)
+        public Domain.Models.Campaign Get(string name)
         {
-            if (!_campaigns.TryGetValue(code, out Domain.Models.Campaign campaign))
-            {
-                throw new DatabaseException("Campaign not found");
-            }
-            return campaign;
+            return _campaigns.SingleOrDefault(a => a.Name == name);
+        }
+
+        public List<Domain.Models.Campaign> GetByProductCode(string productCode)
+        {
+            return _campaigns.Where(a => a.ProductCode == productCode).ToList();
         }
     }
 }

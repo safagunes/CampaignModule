@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Campaign.Domain.Repositories
 {
-    public interface IOrderRepository:IRepository<Order>
+    public interface IOrderRepository
     {
+        void Create(Order model);
         List<Order> GetList(string code);
     }
 }

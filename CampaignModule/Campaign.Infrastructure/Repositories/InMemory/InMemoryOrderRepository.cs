@@ -15,12 +15,6 @@ namespace Campaign.Infrastructure.Repositories.InMemory
         {
             _orders.Add(model);
         }
-
-        public Order Get(string code)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Order> GetList(string code)
         {
             return _orders.Where(a => a.ProductCode == code).ToList();

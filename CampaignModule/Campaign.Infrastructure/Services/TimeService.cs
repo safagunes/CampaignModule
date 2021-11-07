@@ -17,7 +17,7 @@ namespace Campaign.Infrastructure.Services
 
         public void Incrace(int hour)
         {
-            time.AddHours(hour);
+           time = time.AddHours(hour);
         }
     }
 }

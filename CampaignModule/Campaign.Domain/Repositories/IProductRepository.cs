@@ -5,8 +5,9 @@ using System.Text;
 
 namespace Campaign.Domain.Repositories
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface IProductRepository
     {
-
+        void Create(Product model);
+        Product Get(string code);
     }
 }

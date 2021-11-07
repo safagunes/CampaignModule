@@ -5,6 +5,7 @@ using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Campaign.Infrastructure.Services
@@ -27,20 +28,24 @@ namespace Campaign.Infrastructure.Services
             {
                 throw new BusinessException("Product not found");
             }
-                var campaign = _campaignRepository.Get(code);
-                var time = _timeService.Get();
-                if (campaign != null)
-                {
-                    //TODO:Safa: Price Hesaplama yapılacak
-                    product.Price = product.Price * (1);
-                   
-                }
-                return new ProductInfoDto
-                {
-                    ProductCode = product.ProductCode,
-                    Price = product.Price,
-                    Stock = product.Stock
-                }; 
+            var campaigns = _campaignRepository.GetByProductCode(code);
+
+            var time = _timeService.Get();
+
+            var activeCampains = campaigns.SingleOrDefault(a => a.Duration - time.Hour > 0);
+
+            if (activeCampains != null)
+            {
+                //TODO:Safa: Price Hesaplama yapılacak
+                product.CurrentPrice = product.Price - (product.Price * (activeCampains.PriceManipulationLimit / activeCampains.Duration * time.Hour) / 100);
+
+            }
+            return new ProductInfoDto
+            {
+                ProductCode = product.ProductCode,
+                Price = product.CurrentPrice,
+                Stock = product.Stock
+            };
         }
 
         public void ProductCreate(ProductCreateDto model)
@@ -49,6 +54,7 @@ namespace Campaign.Infrastructure.Services
             {
                 ProductCode = model.ProductCode,
                 Price = model.Price,
+                CurrentPrice = model.Price,
                 Stock = model.Stock
             });
         }

@@ -21,10 +21,7 @@ namespace Campaign.Infrastructure.Repositories.InMemory
 
         public Product Get(string code)
         {
-            if (!_products.TryGetValue(code, out Product product))
-            {
-                throw new DatabaseException("Product not found");
-            }
+            _products.TryGetValue(code, out Product product);
             return product;
         }
     }
