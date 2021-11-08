@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Campaign.Domain.Dtos.Campaign
+﻿namespace Campaign.Domain.Dtos.Campaign
 {
     public class CampaignCreateDto
     {

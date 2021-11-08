@@ -1,9 +1,6 @@
 ﻿using Campaign.Domain.Exceptions;
 using Campaign.Domain.Repositories;
 using Campaign.Infrastructure.Repositories.InMemory;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Campaign.Test.Repositories

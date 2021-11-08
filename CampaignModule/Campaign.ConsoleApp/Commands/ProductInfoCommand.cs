@@ -1,13 +1,11 @@
 ﻿using Campaign.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.ConsoleApp.Commands
 {
     public class ProductInfoCommand : ICommand
     {
-        
+
         private readonly IProductService _productService;
         public ProductInfoCommand(IProductService productService)
         {

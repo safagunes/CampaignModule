@@ -1,8 +1,5 @@
 ﻿using Campaign.Domain.Services;
 using Campaign.Infrastructure.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Campaign.Test.Services

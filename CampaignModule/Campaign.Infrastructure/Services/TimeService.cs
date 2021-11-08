@@ -1,8 +1,6 @@
 ﻿using Campaign.Domain.Services;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace Campaign.Infrastructure.Services
 {
@@ -17,7 +15,7 @@ namespace Campaign.Infrastructure.Services
 
         public void Incrace(int hour)
         {
-           time = time.AddHours(hour);
+            time = time.AddHours(hour);
         }
     }
 }

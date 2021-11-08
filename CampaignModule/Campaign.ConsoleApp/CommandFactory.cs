@@ -1,9 +1,6 @@
 ﻿using Campaign.ConsoleApp.Commands;
 using Campaign.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 
 namespace Campaign.ConsoleApp
 {

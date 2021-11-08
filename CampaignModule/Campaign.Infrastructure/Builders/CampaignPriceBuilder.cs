@@ -1,7 +1,4 @@
 ﻿using Campaign.Domain.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.Infrastructure.Builders
 {

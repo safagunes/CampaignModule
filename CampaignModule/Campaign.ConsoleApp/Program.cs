@@ -1,16 +1,11 @@
 ﻿using Campaign.Domain.Builders;
-using Campaign.Domain.Dtos.Campaign;
-using Campaign.Domain.Dtos.Order;
-using Campaign.Domain.Dtos.Product;
 using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
 using Campaign.Infrastructure.Builders;
 using Campaign.Infrastructure.Repositories.InMemory;
 using Campaign.Infrastructure.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Campaign.ConsoleApp
 {

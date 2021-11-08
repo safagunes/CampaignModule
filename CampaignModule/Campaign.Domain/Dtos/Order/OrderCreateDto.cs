@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Campaign.Domain.Dtos.Order
+﻿namespace Campaign.Domain.Dtos.Order
 {
     public class OrderCreateDto
     {

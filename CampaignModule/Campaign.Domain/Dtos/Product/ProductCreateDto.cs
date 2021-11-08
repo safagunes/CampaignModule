@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Campaign.Domain.Dtos.Product
+﻿namespace Campaign.Domain.Dtos.Product
 {
     public class ProductCreateDto
     {

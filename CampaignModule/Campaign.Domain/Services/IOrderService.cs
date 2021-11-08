@@ -1,7 +1,4 @@
 ﻿using Campaign.Domain.Dtos.Order;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.Domain.Services
 {

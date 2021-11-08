@@ -1,9 +1,7 @@
 ﻿using Campaign.Domain.Exceptions;
 using Campaign.Domain.Models;
 using Campaign.Domain.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.Infrastructure.Repositories.InMemory
 {

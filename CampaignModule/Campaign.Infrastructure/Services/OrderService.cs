@@ -3,9 +3,6 @@ using Campaign.Domain.Exceptions;
 using Campaign.Domain.Models;
 using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.Infrastructure.Services
 {

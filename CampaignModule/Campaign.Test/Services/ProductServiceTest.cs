@@ -7,7 +7,6 @@ using Campaign.Domain.Services;
 using Campaign.Infrastructure.Builders;
 using Campaign.Infrastructure.Repositories.InMemory;
 using Campaign.Infrastructure.Services;
-using System;
 using Xunit;
 
 namespace Campaign.Test.Services

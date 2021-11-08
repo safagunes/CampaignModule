@@ -1,7 +1,5 @@
 ﻿using Campaign.Domain.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Campaign.ConsoleApp.Commands
 {
@@ -12,7 +10,7 @@ namespace Campaign.ConsoleApp.Commands
         {
             _campaignService = campaignService;
         }
-      
+
         public void Process(string[] arg)
         {
             if ((arg.Length - 1) != 1)
