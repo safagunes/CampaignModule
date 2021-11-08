@@ -1,8 +1,10 @@
+using Campaign.Domain.Builders;
 using Campaign.Domain.Dtos.Product;
 using Campaign.Domain.Exceptions;
 using Campaign.Domain.Models;
 using Campaign.Domain.Repositories;
 using Campaign.Domain.Services;
+using Campaign.Infrastructure.Builders;
 using Campaign.Infrastructure.Repositories.InMemory;
 using Campaign.Infrastructure.Services;
 using System;
@@ -15,6 +17,8 @@ namespace Campaign.Test.Services
         private readonly IProductRepository _productRepository;
         private readonly ICampaignRepository _campaignRepository;
 
+        private readonly ICampaignPriceBuilder _campaignPriceBuilder;
+
         private readonly ITimeService _timeService;
         private readonly IProductService _productService;
 
@@ -24,8 +28,10 @@ namespace Campaign.Test.Services
             _productRepository = new InMemoryProductRepository();
             _campaignRepository = new InMemoryCampaignRepository();
 
+            _campaignPriceBuilder = new CampaignPriceBuilder();
+
             _timeService = new TimeService();
-            _productService = new ProductService(_productRepository, _campaignRepository, _timeService);
+            _productService = new ProductService(_productRepository, _campaignRepository, _timeService, _campaignPriceBuilder);
 
             _productRepository.Create(new Product
             {

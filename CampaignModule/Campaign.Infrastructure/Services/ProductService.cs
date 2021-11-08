@@ -1,4 +1,5 @@
-﻿using Campaign.Domain.Dtos.Product;
+﻿using Campaign.Domain.Builders;
+using Campaign.Domain.Dtos.Product;
 using Campaign.Domain.Exceptions;
 using Campaign.Domain.Models;
 using Campaign.Domain.Repositories;
@@ -15,11 +16,13 @@ namespace Campaign.Infrastructure.Services
         private readonly IProductRepository _productRepository;
         private readonly ICampaignRepository _campaignRepository;
         private readonly ITimeService _timeService;
-        public ProductService(IProductRepository productRepository, ICampaignRepository campaignRepository, ITimeService timeService)
+        private readonly ICampaignPriceBuilder _campaignPriceBuilder;
+        public ProductService(IProductRepository productRepository, ICampaignRepository campaignRepository, ITimeService timeService, ICampaignPriceBuilder campaignPriceBuilder)
         {
             _productRepository = productRepository;
             _campaignRepository = campaignRepository;
             _timeService = timeService;
+            _campaignPriceBuilder = campaignPriceBuilder;
         }
         public ProductInfoDto GetProductInfo(string code)
         {
@@ -32,13 +35,12 @@ namespace Campaign.Infrastructure.Services
 
             var time = _timeService.Get();
 
-            var activeCampains = campaigns.SingleOrDefault(a => a.Duration - time.Hour > 0);
+            var activeCampain = campaigns.SingleOrDefault(a => a.Duration - time.Hour > 0);
 
-            if (activeCampains != null)
+            if (activeCampain != null)
             {
-                //TODO:Safa: Price Hesaplama yapılacak
-                product.CurrentPrice = product.Price - (product.Price * (activeCampains.PriceManipulationLimit / activeCampains.Duration * time.Hour) / 100);
-
+      
+                product.CurrentPrice = _campaignPriceBuilder.Build(product.Price, activeCampain.Duration, activeCampain.PriceManipulationLimit, time.Hour);
             }
             return new ProductInfoDto
             {
